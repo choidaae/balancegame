@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <title>🍃 독서 밸런스 게임</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="app"> 
+        <section id="start-screen" class="screen active">
+            <h1>🍃 독서 밸런스 게임</h1>
+            <p>총 10개의 질문에 두 사람이<br>차례대로 답변해 주세요.</p>
+            <p>얼마나 잘 통하는지<br>결과를 확인해 보세요!</p>
+            <button id="start-button" class="btn">시작하기</button>
+        </section>
+
+        <section id="game-screen" class="screen">
+            
+            <div id="progress-bar">
+                </div>
+
+            <div id="player-turn">Player 1의 차례</div>
+            <div id="question-number"></div>
+            <h2 id="question-text"></h2>
+            
+            <div class="choice-container">
+                <button id="choice-a" class="btn choice-btn"></button>
+                <div class="vs-text">vs</div>
+                <button id="choice-b" class="btn choice-btn"></button>
+            </div>
+        </section>
+
+        <section id="result-screen" class="screen">
+            <h2>결과 확인!</h2>
+            <div id="result-emoji"></div>
+            <h3 id="result-headline"></h3>
+            <p id="match-count-text"></p>
+            <p id="result-description"></p>
+            <button id="retry-button" class="btn">다시하기</button>
+        </section>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
