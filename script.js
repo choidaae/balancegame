@@ -97,12 +97,13 @@ function updateProgressBar(index) {
 
 // [수정] 게임 시작 함수
 function startGame() {
+    startButton.blur(); // [추가] '시작하기' 버튼 포커스 즉시 제거
     currentPlayer = 1;
     currentQuestionIndex = 0;
     player1Answers = [];
     player2Answers = [];
     
-    createProgressBar(); // [추가] 게임 시작 시 진행 상태 바 생성
+    createProgressBar(); 
     
     showScreen(gameScreen);
     showQuestion();
@@ -121,7 +122,13 @@ function showQuestion() {
     choiceBButton.innerText = question.choiceB;
 }
 
+// [수정] 선택지 처리 함수
 function handleChoice(choice) {
+    // [수정] 클릭 즉시 버튼 포커스를 제거하여 'sticky hover' 현상 방지
+    // (함수 맨 위로 이동)
+    choiceAButton.blur();
+    choiceBButton.blur();
+
     if (currentPlayer === 1) {
         player1Answers.push(choice);
         currentPlayer = 2;
@@ -143,8 +150,8 @@ function handleChoice(choice) {
             setTimeout(showResult, 500); 
         }
     }
-    choiceAButton.blur();
-    choiceBButton.blur();
+    
+    // [수정] 기존 위치의 blur() 호출은 함수 맨 위로 이동했습니다.
 }
 
 function showResult() {
@@ -163,8 +170,9 @@ function showResult() {
     showScreen(resultScreen);
 }
 
-// 게임 다시 시작 함수
+// [수정] 게임 다시 시작 함수
 function restartGame() {
+    retryButton.blur(); // [추가] '다시하기' 버튼 포커스 즉시 제거
     appContainer.classList.remove('player-1-active', 'player-2-active');
     showScreen(startScreen);
 }
