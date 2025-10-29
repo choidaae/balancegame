@@ -143,6 +143,8 @@ function handleChoice(choice) {
             setTimeout(showResult, 500); 
         }
     }
+    choiceAButton.blur();
+    choiceBButton.blur();
 }
 
 function showResult() {
@@ -175,4 +177,5 @@ document.addEventListener('DOMContentLoaded', () => {
     choiceAButton.addEventListener('click', () => handleChoice('A'));
     choiceBButton.addEventListener('click', () => handleChoice('B'));
     showScreen(startScreen);
+
 });
