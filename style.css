@@ -28,7 +28,7 @@ body {
     padding: 24px 32px;
     text-align: center;
     overflow: hidden;
-    /* [수정] 배경색 전환 효과 추가 */
+    /* 배경색 전환 효과 */
     transition: background-color 0.4s ease-in-out;
 }
 
@@ -92,6 +92,10 @@ p {
     cursor: pointer;
     transition: all 0.3s ease;
     width: 100%; 
+    /* [추가] 모바일 탭 하이라이트 제거 */
+    -webkit-tap-highlight-color: transparent;
+    /* [추가] 포커스 외곽선 제거 */
+    outline: none;
 }
 
 /* 기본 버튼 (시작/다시하기) */
@@ -101,20 +105,72 @@ p {
     color: white;
 }
 
-#start-button:hover,
-#retry-button:hover {
-    background-color: #16a085;
-    transform: translateY(-2px);
+/* 데스크톱(hover 가능 기기)에서만 hover 효과 적용 */
+@media (hover: hover) {
+    #start-button:hover,
+    #retry-button:hover {
+        background-color: #16a085;
+        transform: translateY(-2px);
+    }
 }
 
+/* 모바일/터치 기기에서 누르는 동안(:active) 효과 */
+#start-button:active,
+#retry-button:active {
+    background-color: #16a085;
+    transform: translateY(1px);
+    transition: transform 0.1s;
+}
+
+
 /* --- 게임 진행 화면 --- */
+
+/* [추가] 실시간 진행 상태 바 스타일 */
+#progress-bar {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+.progress-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #bdc3c7; 
+    width: 2.5em; 
+}
+
+.progress-number {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.progress-result {
+    font-size: 1.1rem;
+    font-weight: bold;
+    height: 1.2em; 
+    line-height: 1.2em;
+}
+
+/* O/X 결과 색상 */
+.progress-result.match {
+    color: #27ae60; /* 일치 (O) */
+}
+
+.progress-result.mismatch {
+    color: #e74c3c; /* 불일치 (X) */
+}
+
 
 #player-turn {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #e67e22; /* 기본 색상 (Player 1) */
+    color: #e67e22; 
     margin-bottom: 12px;
-    /* [추가] 색상 전환 효과 */
     transition: color 0.4s ease-in-out;
 }
 
@@ -137,6 +193,7 @@ p {
     color: #7f8c8d;
 }
 
+/* 선택지 버튼 */
 .choice-btn {
     background-color: #ecf0f1;
     color: #34495e;
@@ -144,12 +201,27 @@ p {
     line-height: 1.5;
     padding: 16px;
     text-align: center;
+    /* [추가] 모바일 탭 하이라이트 제거 (위 .btn에 이미 있지만 중복해도 OK) */
+    -webkit-tap-highlight-color: transparent; 
+    outline: none; 
 }
 
-.choice-btn:hover {
+/* [수정] 데스크톱(hover 가능 기기)에서만 hover 효과 적용 */
+@media (hover: hover) {
+    .choice-btn:hover {
+        background-color: #bdc3c7;
+        border-color: #95a5a6;
+    }
+}
+
+/* [추가] 모바일/터치 기기에서 누르는 동안(:active) 효과 */
+.choice-btn:active {
     background-color: #bdc3c7;
     border-color: #95a5a6;
+    transform: translateY(1px);
+    transition: transform 0.1s;
 }
+
 
 /* --- 결과 화면 --- */
 
@@ -199,45 +271,4 @@ p {
 /* Player 2 턴 텍스트 색상 */
 #app.player-2-active #player-turn {
     color: #d97706; /* Dark Orange */
-}
-
-
-/* 실시간 바 */
-#progress-bar {
-    display: flex;
-    justify-content: space-around; /* 10개 항목을 균등하게 배분 */
-    width: 100%;
-    margin-bottom: 24px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid #ecf0f1; /* 구분선 */
-}
-
-.progress-item {
-    display: flex;
-    flex-direction: column; /* 숫자 아래에 O/X가 오도록 */
-    align-items: center;
-    font-size: 0.9rem;
-    color: #bdc3c7; /* 기본 (아직 답변 안 함) 색상 */
-    width: 2.5em; /* 각 항목의 너비를 고정해 정렬 */
-}
-
-.progress-number {
-    font-weight: bold;
-    margin-bottom: 4px;
-}
-
-.progress-result {
-    font-size: 1.1rem;
-    font-weight: bold;
-    height: 1.2em; 
-    line-height: 1.2em;
-}
-
-/* JavaScript가 추가할 클래스 */
-.progress-result.match {
-    color: #27ae60; /* 일치 (O) - 초록색 */
-}
-
-.progress-result.mismatch {
-    color: #e74c3c; /* 불일치 (X) - 빨간색 */
 }
